@@ -1,18 +1,101 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta name="format-detection" content="telephone=no" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta name="HandheldFriendly" content="true">
-    <meta name="MobileOptimized" content="width">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>ZOV</title>
-    <style type="text/css">@font-face {font-family: "Brushot-Bold"; src: url("Brushot-Bold.ttf") format("truetype");} *{margin: 0; padding: 0;} body{background: url("fon.jpg") repeat 100% 100%; background-size: cover;} .z{width: 300px; height: 300px; text-align: center; text-shadow: 1px 1px 3px #000; box-shadow: 1px 1px 3px #000; font-family: "Brushot-Bold"; font-weight: normal; font-size: 300px; line-height: 300px; color: #fff; position: absolute; top:0; bottom: 0; left: 0; right: 0; margin: auto; padding: 20px; border: 15px solid #fff;}.noselect{-webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none;}</style>
-</head>
-<body class="noselect">
-    <div class="z" onclick="if (this.innerHTML == 'Z') {this.innerHTML = 'O';} else if (this.innerHTML == 'O') {this.innerHTML = 'V';} else {this.innerHTML = 'Z';}">Z</div>
-</body>
+<!doctype html>
+<html lang="ru"> 
+    <head> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <meta charset="utf-8"> 
+        <meta name="format-detection" content="telephone=no"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+        <meta content="yes" name="apple-mobile-web-app-capable"> 
+        <meta name="HandheldFriendly" content="true"> 
+        <meta name="MobileOptimized" content="width"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes"> 
+        <title>ZА ПРАVДУ!</title> 
+        <style type="text/css">
+            @font-face {
+                font-family: "Brushot-Bold";
+                src: url("Brushot-Bold.ttf") format("truetype");
+            }
+            
+            html, body {
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                height: 100%;
+                background: #344A33 url("fon.jpg") 100% 100% repeat;
+            }
+            
+            .z {
+                width: 80%;
+                height: 0;
+                padding-bottom: 80%;
+                background-color: transparent;
+                text-align: center;
+                text-shadow: 1px 1px 3px #000;
+                box-shadow: 1px 1px 3px #000;
+                font-family: "Brushot-Bold";
+                font-weight: normal;
+                font-size: 80vw;
+                line-height: 85vw;
+                color: #fff;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                border: 5vw solid #fff;
+            }
+            
+            .dl {
+                color: #fff;
+                text-decoration: none;
+                font-weight: bold;
+                text-shadow: 1px 1px 3px #000;
+                box-shadow: 1px 1px 3px #000;
+                padding: 7px;
+                border: 3px solid #fff;
+                border-radius: 3px;
+            }
+            
+            .noselect {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+        </style> 
+        <script type="text/javascript" src="html2canvas.min.js"></script> 
+    </head> 
+    <body class="noselect"> 
+        <div class="z" id="z" onclick="select(this);">
+            Z
+        </div> 
+        <div id="save" style="display: none;"></div>' 
+        <script type="text/javascript">
+            var time = Date.now || function() {
+                return +new Date;
+            };
+            function select(e) {
+                if (e.innerText == 'Z') {
+                    e.innerHTML = 'O';
+                } else if (e.innerText == 'O') {
+                    e.innerHTML = 'V';
+                } else {
+                    e.innerHTML = 'Z';
+                }
+            }
+            function screenshot() {
+                html2canvas(document.body).then(function(canvas) {
+                    document.getElementById("save").innerHTML='<form action="/win/down.php?_='+time()+'" id="form" method="POST"><input type="hidden" name="type" value="jpeg" /><input type="hidden" name="name" value="'+document.getElementById("z").innerText+'"><input type="hidden" name="image" value="'+canvas.toDataURL("image/jpeg")+'"></form>';
+                    document.getElementById("form").submit();
+                });
+            }
+        </script> 
+        <br>
+        <center>
+            <a href="#" onclick="screenshot(); return false;" class="dl" data-html2canvas-ignore="true">СОХРАНИТЬ</a>
+        </center>  
+    </body>
 </html>
