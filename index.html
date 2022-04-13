@@ -26,8 +26,7 @@
             
             .z {
                 width: 80%;
-                height: 0;
-                padding-bottom: 80%;
+                height: 80%;
                 background-color: transparent;
                 text-align: center;
                 text-shadow: 1px 1px 3px #000;
@@ -44,9 +43,13 @@
                 right: 0;
                 margin: auto;
                 border: 5vw solid #fff;
+                z-index: 1;
             }
             
             .dl {
+                position: absolute;
+                bottom: 5px;
+                right: 5px;
                 color: #fff;
                 text-decoration: none;
                 font-weight: bold;
@@ -55,6 +58,7 @@
                 padding: 7px;
                 border: 3px solid #fff;
                 border-radius: 3px;
+                z-index: 999;
             }
             
             .noselect {
@@ -71,7 +75,7 @@
     <body class="noselect"> 
         <div class="z" id="z" onclick="select(this);">
             Z
-        </div> 
+        </div>
         <script type="text/javascript">
             var time = Date.now || function() {
                 return +new Date;
@@ -95,10 +99,24 @@
                     document.body.removeChild(a);
                 });
             }
+            function setSize() {
+                var a = window.innerWidth;
+                var b = window.innerHeight;
+                var s = Math.round(a > b ? 0.8 * b : 0.8 * a);
+                var h = Math.round(a > b ? 0.85 * b : 0.85 * a);
+                var z = document.getElementById("z");
+                z.style.width = s + "px";
+                z.style.height =  s + "px";
+                z.style.border = (h - s) + "px solid #fff";
+                z.style.fontSize = s + "px";
+                z.style.lineHeight = h + "px";
+            }
+            setSize();
+            window.addEventListener("load", function() {
+                setInterval(setSize, 500);
+            }, false);
         </script> 
         <br>
-        <center>
-            <a href="#" onclick="screenshot(); return false;" class="dl" data-html2canvas-ignore="true">СОХРАНИТЬ</a>
-        </center>  
+        <a href="#" onclick="screenshot(); return false;" class="dl" data-html2canvas-ignore="true">СОХРАНИТЬ</a>
     </body>
 </html>
