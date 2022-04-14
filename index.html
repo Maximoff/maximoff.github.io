@@ -75,11 +75,8 @@
     <body class="noselect"> 
         <div class="z" id="z" onclick="select(this);">
             Z
-        </div>
+        </div> 
         <script type="text/javascript">
-            var time = Date.now || function() {
-                return +new Date;
-            };
             function select(e) {
                 if (e.innerText == 'Z') {
                     e.innerHTML = 'O';
@@ -90,7 +87,22 @@
                 }
             }
             function screenshot() {
-                html2canvas(document.body, {"imageTimeout": 0}).then(function(canvas) {
+                var a = window.innerWidth;
+                var b = window.innerHeight;
+                var c = {imageTimeout: 0};
+                if (a > b) {
+                    c.width = b;
+                    c.height = b;
+                    c.x = Math.round((a - b) / 2);
+                } else if (a < b) {
+                    c.width = a;
+                    c.height = a;
+                    c.y = Math.round((b - a) / 2);
+                } else {
+                    c.width = a;
+                    c.height = a;
+                }
+                html2canvas(document.body, c).then(function(canvas) {
                     var a = document.createElement("a");
                     a.href = canvas.toDataURL("image/jpeg");
                     a.download = document.getElementById("z").innerText + ".jpg";
