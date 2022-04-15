@@ -32,6 +32,7 @@
             .z {
                 width: 80%;
                 height: 80%;
+                display: block;
                 background-color: transparent;
                 text-align: center;
                 text-shadow: 1px 1px 3px #000;
@@ -86,32 +87,30 @@
         <script type="text/javascript" src="html2canvas.min.js"></script> 
     </head> 
     <body class="noselect" data-bg="0"> 
-        <div class="z" id="z" onclick="select(this);">
+        <div class="z" id="z" onclick="change(this);" data-z="0">
             Z
         </div> 
         <script type="text/javascript">
-            function select(e) {
-                if (e.innerText == 'Z') {
-                    e.innerHTML = 'O';
-                } else if (e.innerText == 'O') {
-                    e.innerHTML = 'V';
-                } else {
-                    e.innerHTML = 'Z';
+            function change(e) {
+                var c = ['Z', 'O', 'V'];
+                var d = parseInt(e.getAttribute('data-z'));
+                d++;
+                if (d >= c.length) {
+                    d = 0;
                 }
+                e.setAttribute('data-z', d);
+                e.innerHTML = c[d];
             }
             function toggle() {
                 var b = document.body;
-                var d = b.getAttribute('data-bg');
-                if (d == '0') {
-                    b.setAttribute('data-bg', '1');
-                    b.style.background = '#344A33';
-                } else if (d == '1') {
-                    b.setAttribute('data-bg', '2');
-                    b.style.background = '#74884A';
-                } else {
-                    b.setAttribute('data-bg', '0');
-                    b.style.background = '';
+                var c = ['', '#424F35', '#7A8B65', 'linear-gradient(#7A8B65, #344A33)'];
+                var d = parseInt(b.getAttribute('data-bg'));
+                d++;
+                if (d >= c.length) {
+                    d = 0;
                 }
+                b.setAttribute('data-bg', d);
+                b.style.background = c[d];
             }
             function screenshot() {
                 var a = window.innerWidth;
@@ -138,7 +137,7 @@
                     document.body.removeChild(a);
                 });
             }
-            function setSize() {
+            function size() {
                 var a = window.innerWidth;
                 var b = window.innerHeight;
                 var s = Math.round(a > b ? 0.8 * b : 0.8 * a);
@@ -150,9 +149,9 @@
                 z.style.fontSize = s + "px";
                 z.style.lineHeight = h + "px";
             }
-            setSize();
+            size();
             window.addEventListener("load", function() {
-                setInterval(setSize, 500);
+                setInterval(size, 500);
             }, false);
         </script> 
         <br>
