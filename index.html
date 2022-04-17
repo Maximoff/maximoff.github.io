@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ru"> 
     <head> 
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
@@ -9,6 +9,7 @@
         <meta name="HandheldFriendly" content="true"> 
         <meta name="MobileOptimized" content="width"> 
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+        <noscript><meta http-equiv="refresh" content="0; URL=badbrowser.html"></noscript>
         <link rel="shortcut icon" type="image/png" href="favicon.png" />
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
         <title>ZА ПРАVДУ!</title> 
@@ -92,11 +93,19 @@
         </div> 
         <script type="text/javascript">
             function change(e) {
-                var c = ['Z', 'O', 'V'];
+                var a = window.innerWidth;
+                var b = window.innerHeight;
+                var s = Math.round(a > b ? 0.8 * b : 0.8 * a);
+                var c = ['Z', 'O', 'V', '🇷🇺'];
                 var d = parseInt(e.getAttribute('data-z'));
                 d++;
                 if (d >= c.length) {
                     d = 0;
+                }
+                if (d == 3) {
+                    e.style.fontSize = Math.round(0.7 * s) + "px";
+                } else {
+                    e.style.fontSize = s + "px";
                 }
                 e.setAttribute('data-z', d);
                 e.innerHTML = c[d];
@@ -130,7 +139,7 @@
                 }
                 html2canvas(document.body, c).then(function(canvas) {
                     var a = document.createElement("a");
-                    a.href = canvas.toDataURL("image/jpeg");
+                    a.href = canvas.toDataURL("image/jpeg", 0.9);
                     a.download = document.getElementById("z").innerText + ".jpg";
                     document.body.appendChild(a);
                     a.click();
@@ -143,10 +152,15 @@
                 var s = Math.round(a > b ? 0.8 * b : 0.8 * a);
                 var h = Math.round(a > b ? 0.85 * b : 0.85 * a);
                 var z = document.getElementById("z");
+                var d = parseInt(z.getAttribute('data-z'));
                 z.style.width = s + "px";
                 z.style.height =  s + "px";
                 z.style.border = (h - s) + "px solid #fff";
-                z.style.fontSize = s + "px";
+                if (d == 3) {
+                    z.style.fontSize = Math.round(0.7 * s) + "px";
+                } else {
+                    z.style.fontSize = s + "px";
+                }
                 z.style.lineHeight = h + "px";
             }
             size();
